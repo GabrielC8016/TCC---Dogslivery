@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "593047266952",
+    "project_id": "dogslivery-app",
+    "storage_bucket": "dogslivery-app.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:593047266952:android:133a8eb70ae82c89af213d",
+        "android_client_info": {
+          "package_name": "com.dogslivery.app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "593047266952-22p8od949nqoajk8f7qnbmnmgdcnogrt.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCiR9ivQryv1WMVNUITjxS-fbb7f4byU94"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "593047266952-22p8od949nqoajk8f7qnbmnmgdcnogrt.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
