@@ -1,3 +1,5 @@
+// ignore_for_file: unused_element
+
 import 'dart:async';
 
 import 'package:bloc/bloc.dart';
@@ -17,6 +19,7 @@ class OrdersBloc extends Bloc<OrdersEvent, OrdersState> {
     on<OnUpdateStatusOrderToDispatchedEvent>(_onUpdateStatusOrderToDispatched);
     on<OnUpdateStatusOrderOnWayEvent>(_onUpdateStatusOrderOnWay);
     on<OnUpdateStatusOrderDeliveredEvent>(_onUpdateStatusOrderDelivered);
+    on<OnCancelOrderEvent>(_onCancelOrder);
   }
 
   Future<void> _onAddNewOrders(

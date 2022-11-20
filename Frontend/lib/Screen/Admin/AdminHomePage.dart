@@ -115,7 +115,7 @@ class AdminHomePage extends StatelessWidget {
                     context, routeDogsLivery(page: ListProductsPage())),
               ),
               ItemAccount(
-                text: 'Entrega',
+                text: 'Entregadores',
                 icon: Icons.delivery_dining_rounded,
                 colorIcon: 0xff469CD7,
                 onPressed: () => Navigator.push(
