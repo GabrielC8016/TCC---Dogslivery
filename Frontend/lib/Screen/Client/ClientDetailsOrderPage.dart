@@ -225,7 +225,54 @@ class ClientDetailsOrderPage extends StatelessWidget {
                         accessGps(await Permission.location.request(), context),
                   ),
                 )
-              : Container()
+              : Container(),
+
+          //CANCELAR PEDIDO CLIENTE
+          (orderClient.status != 'ENTREGUE' &&
+                  orderClient.status != 'CANCELADO')
+              ? Container(
+                  child: Column(children: [
+                  SizedBox(height: 10.0),
+                  InkWell(
+                    onTap: () => showDialog<String>(
+                        context: context,
+                        builder: (BuildContext context) => AlertDialog(
+                              title: const Text('Confirmar cancelamento'),
+                              content: const Text(
+                                  'Tem certeza que deseja cancelar seu pedido?'),
+                              actions: <Widget>[
+                                TextButton(
+                                  onPressed: () =>
+                                      Navigator.pop(context, 'Não'),
+                                  child: const Text('Não'),
+                                ),
+                                TextButton(
+                                  onPressed: () => {
+                                    orderBloc.add(OnCancelOrderEvent(
+                                        orderClient.id.toString())),
+                                    Navigator.push(
+                                        context,
+                                        routeDogsLivery(
+                                            page: ClientHomePage())),
+                                  },
+                                  child: const Text('Sim'),
+                                ),
+                              ],
+                            )),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Icon(Icons.cancel,
+                            color: ColorsDogsLivery.primaryColor, size: 17),
+                        TextDogsLivery(
+                            text: 'Cancelar pedido',
+                            fontSize: 17,
+                            color: ColorsDogsLivery.primaryColor)
+                      ],
+                    ),
+                  ),
+                ]))
+              : Container(),
         ],
       ),
     );

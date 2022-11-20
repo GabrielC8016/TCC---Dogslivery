@@ -153,17 +153,16 @@ class AdminHomePage extends StatelessWidget {
               ),
               Divider(),
               ItemAccount(
-                text: 'Sair A',
-                icon: Icons.power_settings_new_sharp,
-                colorIcon: 0xffF02849,
-                onPressed: () {
-                  authBloc.add(LogOutEvent());
-                  Navigator.pushAndRemoveUntil(
-                      context,
-                      routeDogsLivery(page: CheckingLoginPage()),
-                      (route) => false);
-                },
-              ),
+                  text: 'Sair A',
+                  icon: Icons.power_settings_new_sharp,
+                  colorIcon: 0xffF02849,
+                  onPressed: () {
+                    authBloc.add(LogOutEvent());
+                    Navigator.pushAndRemoveUntil(
+                        context,
+                        routeDogsLivery(page: CheckingLoginPage()),
+                        (route) => false);
+                  }),
             ],
           ),
         ),

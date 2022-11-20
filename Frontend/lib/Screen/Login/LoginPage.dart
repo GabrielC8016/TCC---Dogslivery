@@ -113,7 +113,7 @@ class _LoginPageState extends State<LoginPage> {
                 ),
                 SizedBox(height: 15.0),
                 Image.asset('Assets/Logo/dogslivery_sero.png', height: 200),
-                SizedBox(height: 2.0),
+                SizedBox(height: 10.0),
                 Container(
                   alignment: Alignment.center,
                   child: TextDogsLivery(

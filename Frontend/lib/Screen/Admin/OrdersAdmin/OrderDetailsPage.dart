@@ -1,5 +1,6 @@
 // ignore_for_file: prefer_const_constructors, use_key_in_widget_constructors
 
+import 'package:dogslivery/Screen/Admin/AdminHomePage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:dogslivery/Bloc/Orders/orders_bloc.dart';
@@ -21,6 +22,7 @@ class OrderDetailsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final orderBloc = BlocProvider.of<OrdersBloc>(context);
     return BlocListener<OrdersBloc, OrdersState>(
       listener: (context, state) {
         if (state is LoadingOrderState) {
@@ -181,7 +183,53 @@ class OrderDetailsPage extends StatelessWidget {
                       ],
                     ),
                   )
-                : Container()
+                : Container(),
+
+            //CANCELAR PEDIDO ADMIN
+            (order.status != 'ENTREGUE' && order.status != 'CANCELADO')
+                ? Container(
+                    child: Column(children: [
+                    SizedBox(height: 10.0),
+                    InkWell(
+                      onTap: () => showDialog<String>(
+                          context: context,
+                          builder: (BuildContext context) => AlertDialog(
+                                title: const Text('Confirmar cancelamento'),
+                                content: const Text(
+                                    'Tem certeza que deseja cancelar seu pedido?'),
+                                actions: <Widget>[
+                                  TextButton(
+                                    onPressed: () =>
+                                        Navigator.pop(context, 'Não'),
+                                    child: const Text('Não'),
+                                  ),
+                                  TextButton(
+                                    onPressed: () => {
+                                      orderBloc.add(OnCancelOrderEvent(
+                                          order.orderId.toString())),
+                                      Navigator.push(
+                                          context,
+                                          routeDogsLivery(
+                                              page: AdminHomePage())),
+                                    },
+                                    child: const Text('Sim'),
+                                  ),
+                                ],
+                              )),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Icon(Icons.cancel,
+                              color: ColorsDogsLivery.primaryColor, size: 17),
+                          TextDogsLivery(
+                              text: 'Cancelar pedido',
+                              fontSize: 17,
+                              color: ColorsDogsLivery.primaryColor)
+                        ],
+                      ),
+                    ),
+                  ]))
+                : Container(),
           ],
         ),
       ),

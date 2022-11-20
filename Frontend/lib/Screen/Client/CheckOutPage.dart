@@ -90,11 +90,11 @@ class CheckOutPage extends StatelessWidget {
                                     paymentBloc.state.typePaymentMethod,
                                     cartBloc.product));
 
-                                // if( state.typePaymentMethod == 'CREDIT CARD' ){
-
-                                //   modalPaymentWithNewCard(ctx: context, amount: cartBloc.state.total.toString());
-
-                                // }
+                                if (state.typePaymentMethod == 'CREDIT CARD') {
+                                  modalPaymentWithNewCard(
+                                      ctx: context,
+                                      amount: cartBloc.state.total.toString());
+                                }
                               },
                               child: Container(
                                 height: 55,

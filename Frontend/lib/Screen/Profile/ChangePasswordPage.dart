@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_const_constructors, library_private_types_in_public_api
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -8,15 +10,14 @@ import 'package:dogslivery/Themes/ColorsDogsLivery.dart';
 import 'package:dogslivery/Widgets/Widgets.dart';
 import 'package:dogslivery/Helpers/Helpers.dart';
 
-
 class ChangePasswordPage extends StatefulWidget {
+  const ChangePasswordPage({super.key});
+
   @override
   _ChangePasswordPageState createState() => _ChangePasswordPageState();
 }
 
-
 class _ChangePasswordPageState extends State<ChangePasswordPage> {
-
   late TextEditingController _currentPasswordController;
   late TextEditingController _newPasswordController;
   late TextEditingController _repeatPasswordController;
@@ -41,32 +42,26 @@ class _ChangePasswordPageState extends State<ChangePasswordPage> {
     super.dispose();
   }
 
-  void clearTextEditingController(){
+  void clearTextEditingController() {
     _currentPasswordController.clear();
     _newPasswordController.clear();
     _repeatPasswordController.clear();
   }
 
   @override
-  Widget build(BuildContext context)
-  {
+  Widget build(BuildContext context) {
     final generalBloc = BlocProvider.of<GeneralBloc>(context);
     final userBloc = BlocProvider.of<UserBloc>(context);
 
     return BlocListener<UserBloc, UserState>(
-      listener: (context, state){
-
-        if( state is LoadingUserState ){
+      listener: (context, state) {
+        if (state is LoadingUserState) {
           modalLoading(context);
-        
-        } else if ( state is SuccessUserState ){
-
+        } else if (state is SuccessUserState) {
           Navigator.pop(context);
           modalSuccess(context, 'Senha alterada', () => Navigator.pop(context));
           clearTextEditingController();
-        
-        } else if ( state is FailureUserState ){
-
+        } else if (state is FailureUserState) {
           Navigator.pop(context);
           errorMessageSnack(context, state.error);
         }
@@ -74,92 +69,101 @@ class _ChangePasswordPageState extends State<ChangePasswordPage> {
       child: Scaffold(
         backgroundColor: Colors.white,
         appBar: AppBar(
-            backgroundColor: Colors.white,
-            elevation: 0,
-            title: TextDogsLivery(text: 'Mudar senha'),
-            centerTitle: true,
-            leadingWidth: 80,
-            leading: TextButton(
+          backgroundColor: Colors.white,
+          elevation: 0,
+          title: TextDogsLivery(text: 'Mudar senha'),
+          centerTitle: true,
+          leadingWidth: 80,
+          leading: TextButton(
               onPressed: () => Navigator.pop(context),
-              child: TextDogsLivery(text: 'Cancelar', fontSize: 17, color: ColorsDogsLivery.primaryColor )
-            ),
-            actions: [
-              TextButton(
-                onPressed: (){
-                  if( _keyForm.currentState!.validate()){
-                    userBloc.add( OnChangePasswordEvent(_currentPasswordController.text, _newPasswordController.text) );
+              child: TextDogsLivery(
+                  text: 'Cancelar',
+                  fontSize: 17,
+                  color: ColorsDogsLivery.primaryColor)),
+          actions: [
+            TextButton(
+                onPressed: () {
+                  if (_keyForm.currentState!.validate()) {
+                    userBloc.add(OnChangePasswordEvent(
+                        _currentPasswordController.text,
+                        _newPasswordController.text));
                   }
-                }, 
-                child: TextDogsLivery(text: 'Salvar', fontSize: 16, color: ColorsDogsLivery.primaryColor)
-              )
-            ],
-          ),
+                },
+                child: TextDogsLivery(
+                    text: 'Salvar',
+                    fontSize: 16,
+                    color: ColorsDogsLivery.primaryColor))
+          ],
+        ),
         body: SafeArea(
           child: Form(
             key: _keyForm,
             child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
+              padding:
+                  const EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
               child: BlocBuilder<GeneralBloc, GeneralState>(
-                builder: (context, state) 
-                  => Column(
+                builder: (context, state) => Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     SizedBox(height: 20.0),
                     TextDogsLivery(text: 'Senha atual'),
                     SizedBox(height: 5.0),
-                    _FormFieldFravePassword(
-                        controller: _currentPasswordController,
-                        isPassword: state.isShowPassword,
-                        suffixIcon: IconButton(
+                    _FormFieldDogsPassword(
+                      controller: _currentPasswordController,
+                      isPassword: state.isShowPassword,
+                      suffixIcon: IconButton(
                           splashRadius: 20,
-                          icon: state.isShowPassword ? Icon(Icons.remove_red_eye_outlined) : Icon(Icons.visibility_off_rounded) ,
+                          icon: state.isShowPassword
+                              ? Icon(Icons.remove_red_eye_outlined)
+                              : Icon(Icons.visibility_off_rounded),
                           onPressed: () {
-                    
-                            bool isShowPassword =! generalBloc.state.isShowPassword;
-                            generalBloc.add( OnShowOrHidePasswordEvent(isShowPassword) );
-                    
-                          }
-                        ),
-                        validator: passwordValidator,
+                            bool isShowPassword =
+                                !generalBloc.state.isShowPassword;
+                            generalBloc
+                                .add(OnShowOrHidePasswordEvent(isShowPassword));
+                          }),
+                      validator: passwordValidator,
                     ),
                     SizedBox(height: 20.0),
                     TextDogsLivery(text: 'Nova Senha'),
                     SizedBox(height: 5.0),
-                    _FormFieldFravePassword(
-                        controller: _newPasswordController,
-                        isPassword: state.isNewPassword,
-                        suffixIcon: IconButton(
+                    _FormFieldDogsPassword(
+                      controller: _newPasswordController,
+                      isPassword: state.isNewPassword,
+                      suffixIcon: IconButton(
                           splashRadius: 20,
-                          icon: state.isNewPassword ? Icon(Icons.remove_red_eye_outlined) : Icon(Icons.visibility_off_rounded) ,
+                          icon: state.isNewPassword
+                              ? Icon(Icons.remove_red_eye_outlined)
+                              : Icon(Icons.visibility_off_rounded),
                           onPressed: () {
-                    
-                            bool isShowPassword =! generalBloc.state.isNewPassword;
-                            generalBloc.add( OnShowOrHideNewPasswordEvent(isShowPassword) );
-                    
-                          }
-                        ),
-                        validator: passwordValidator,
+                            bool isShowPassword =
+                                !generalBloc.state.isNewPassword;
+                            generalBloc.add(
+                                OnShowOrHideNewPasswordEvent(isShowPassword));
+                          }),
+                      validator: passwordValidator,
                     ),
                     SizedBox(height: 20.0),
                     TextDogsLivery(text: 'Repita a senha'),
                     SizedBox(height: 5.0),
-                    _FormFieldFravePassword(
+                    _FormFieldDogsPassword(
                       controller: _repeatPasswordController,
                       isPassword: state.isRepeatpassword,
                       suffixIcon: IconButton(
-                        splashRadius: 20,
-                        icon: state.isRepeatpassword ? Icon(Icons.remove_red_eye_outlined) : Icon(Icons.visibility_off_rounded) ,
-                        onPressed: () {
-                  
-                          bool isShowPassword =! generalBloc.state.isRepeatpassword;
-                          generalBloc.add( OnShowOrHideRepeatPasswordEvent(isShowPassword) );
-                  
-                        }
-                      ),
-                      validator: (val){
-                        if( val != _newPasswordController.text ){
+                          splashRadius: 20,
+                          icon: state.isRepeatpassword
+                              ? Icon(Icons.remove_red_eye_outlined)
+                              : Icon(Icons.visibility_off_rounded),
+                          onPressed: () {
+                            bool isShowPassword =
+                                !generalBloc.state.isRepeatpassword;
+                            generalBloc.add(OnShowOrHideRepeatPasswordEvent(
+                                isShowPassword));
+                          }),
+                      validator: (val) {
+                        if (val != _newPasswordController.text) {
                           return 'As senhas não coincidem';
-                        } else{
+                        } else {
                           return 'A repetição da senha é obrigatória';
                         }
                       },
@@ -175,8 +179,7 @@ class _ChangePasswordPageState extends State<ChangePasswordPage> {
   }
 }
 
-class _FormFieldFravePassword extends StatelessWidget {
-  
+class _FormFieldDogsPassword extends StatelessWidget {
   final TextEditingController? controller;
   final String? hintText;
   final bool isPassword;
@@ -186,16 +189,15 @@ class _FormFieldFravePassword extends StatelessWidget {
   final Widget? suffixIcon;
   final FormFieldValidator<String>? validator;
 
-  const _FormFieldFravePassword({ 
-    this.controller, 
-    this.hintText, 
-    this.isPassword = false,
-    this.keyboardType = TextInputType.text,
-    this.maxLine = 1,
-    this.readOnly = false,
-    this.suffixIcon,
-    this.validator
-  });
+  const _FormFieldDogsPassword(
+      {this.controller,
+      this.hintText,
+      this.isPassword = false,
+      this.keyboardType = TextInputType.text,
+      this.maxLine = 1,
+      this.readOnly = false,
+      this.suffixIcon,
+      this.validator});
 
   @override
   Widget build(BuildContext context) {
@@ -207,13 +209,13 @@ class _FormFieldFravePassword extends StatelessWidget {
       readOnly: readOnly,
       keyboardType: keyboardType,
       decoration: InputDecoration(
-        border: OutlineInputBorder(borderRadius: BorderRadius.circular(5.0)),
-        enabledBorder: OutlineInputBorder(borderSide: BorderSide(width: .5, color: Colors.grey)),
-        contentPadding: EdgeInsets.only(left: 15.0),
-        hintText: hintText,
-        hintStyle: GoogleFonts.getFont('Roboto', color: Colors.grey),
-        suffixIcon: suffixIcon 
-      ),
+          border: OutlineInputBorder(borderRadius: BorderRadius.circular(5.0)),
+          enabledBorder: OutlineInputBorder(
+              borderSide: BorderSide(width: .5, color: Colors.grey)),
+          contentPadding: EdgeInsets.only(left: 15.0),
+          hintText: hintText,
+          hintStyle: GoogleFonts.getFont('Roboto', color: Colors.grey),
+          suffixIcon: suffixIcon),
       validator: validator,
     );
   }

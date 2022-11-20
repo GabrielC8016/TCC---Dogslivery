@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_const_constructors, library_private_types_in_public_api, use_key_in_widget_constructors, unused_import, sized_box_for_whitespace
+// ignore_for_file: prefer_const_constructors, library_private_types_in_public_api, use_key_in_widget_constructors, unused_import, sized_box_for_whitespace, prefer_const_literals_to_create_immutables
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -75,7 +75,7 @@ class _CheckingLoginPageState extends State<CheckingLoginPage>
       },
       child: Scaffold(
         backgroundColor: ColorsDogsLivery.primaryColor,
-        body: Column(
+        /*body: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
@@ -88,12 +88,27 @@ class _CheckingLoginPageState extends State<CheckingLoginPage>
                   child: Container(
                     height: 200,
                     width: 200,
-                    child: Image.asset('Assets/Logo/logo-white.png'),
+                    child: Image.asset('Assets/Logo/logo-loading.png'),
                   ),
                 ),
               ),
             )
           ],
+        ), ANTIGO CARREGAMENTO (LOADING)*/
+        body: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              CircularProgressIndicator(
+                backgroundColor: Color(0xffFF6D00),
+                valueColor: AlwaysStoppedAnimation(Color(0xff64DD17)),
+                strokeWidth: 10,
+              ),
+              SizedBox(
+                height: 15,
+              ),
+            ],
+          ),
         ),
       ),
     );

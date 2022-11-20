@@ -1,4 +1,6 @@
-library restaurant.thememapsdogsfrave;
+// ignore_for_file: file_names
+
+library delivery.thememapsdogs;
 
 const themeMapsDogsLivery = [
   {

@@ -178,7 +178,7 @@ class _RegisterClientPageState extends State<RegisterClientPage> {
                 controller: _passwordController,
                 hintText: 'Digite sua senha',
                 isPassword: true,
-                validator: passwordValidator,
+                validator: registerPasswordValidator,
               ),
               SizedBox(height: 15.0),
               TextDogsLivery(text: 'Tipo'),
